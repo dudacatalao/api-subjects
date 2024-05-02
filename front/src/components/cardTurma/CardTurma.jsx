@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import './card.css'; 
 
-function CardTurma(props) {
+export default function CardTurma(props) {
   return (
     <div className="card">
       <div className="front-content">

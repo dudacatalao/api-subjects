@@ -1,16 +1,17 @@
+/* eslint-disable react/prop-types */
 import './card.css'; 
 
-function CardMateria(props) {
+export default function CardMateria({ titulo, local, responsavel, semestre, turma }) {
   return (
     <div className="card">
       <div className="front-content">
-        <p>{props.título}</p>
+        <p>{titulo}</p>
       </div>
       <div className="content">
-        <p className="heading">{props.local}</p>
-        <p>{props.responsável}</p>
-        <p>{props.semestre}</p>
-        <p>{props.turma}</p>
+        <p className="heading">Local: {local}</p>
+        <p>Responsável: {responsavel}</p>
+        <p>Semestre: {semestre}</p>
+        <p>Turma: {turma}</p>
       </div>
     </div>
   );
