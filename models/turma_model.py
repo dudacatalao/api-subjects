@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, Integer, String
 from core.configs import settings
 
 class TurmaModel(settings.DBBaseModel):

@@ -4,8 +4,8 @@ from fastapi import APIRouter, status, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from models.models import TurmaModel
-from schemas.schemas import TurmaSchema
+from models.turma_model import TurmaModel
+from schemas.turmas_schema import TurmaSchema
 from core.deps import get_session
 
 router = APIRouter()
@@ -13,7 +13,7 @@ router = APIRouter()
 @router.post("/",status_code=status.HTTP_201_CREATED, response_model=TurmaSchema)
 async def post_turma(turma: TurmaSchema, db: AsyncSession = Depends(get_session)):
   
-  nova_turma = TurmaModel(nome=turma.nome, semestre=turma.semestre)
+  nova_turma = TurmaModel(id=turma.id, nome=turma.nome, semestre=turma.semestre)
   db.add(nova_turma)
   await db.commit()
   
@@ -25,9 +25,9 @@ async def get_turmas(db: AsyncSession = Depends(get_session)):
   async with db as session:
     query = select(TurmaModel)
     result = await session.execute(query)
-    materias: List[TurmaModel] = result.scalars().all()
+    turmas: List[TurmaModel] = result.scalars().all()
     
-    return materias
+    return turmas
 
 @router.get("/{turma_id}", response_model=TurmaSchema, status_code=status.HTTP_200_OK)
 async def get_turma(turma_id:int, db: AsyncSession = Depends(get_session)):
@@ -50,9 +50,7 @@ async def put_turma(turma_id: int, turma:TurmaSchema, db: AsyncSession = Depends
     turma_up = result.scalar_one_or_none()
     
     if turma_up:
-      turma_up.título = turma.título
-      turma_up.responsável = turma.responsável
-      turma_up.local = turma.local
+      turma_up.nome = turma.nome
       turma_up.semestre = turma.semestre
       
       await session.commit()

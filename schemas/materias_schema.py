@@ -1,5 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel as SCBaseModel
+from schemas.turmas_schema import TurmaSchema
 
 class MateriaSchema(SCBaseModel):
     id: Optional[int] = None

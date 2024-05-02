@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from models.materia_model import MateriaModel
-from schemas.schemas import MateriaSchema
+from schemas.materias_schema import MateriaSchema
 from core.deps import get_session
 
 router = APIRouter()
