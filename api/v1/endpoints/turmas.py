@@ -4,13 +4,23 @@ from fastapi import APIRouter, status, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from models.models import MateriaModel, TurmaModel
-from schemas.schemas import MateriaSchema, TurmaSchema
+from models.models import TurmaModel
+from schemas.schemas import TurmaSchema
 from core.deps import get_session
 
 router = APIRouter()
 
-@router.get("/turmas", response_model=List[TurmaSchema])
+@router.post("/",status_code=status.HTTP_201_CREATED, response_model=TurmaSchema)
+async def post_turma(turma: TurmaSchema, db: AsyncSession = Depends(get_session)):
+  
+  nova_turma = TurmaModel(nome=turma.nome, semestre=turma.semestre)
+  db.add(nova_turma)
+  await db.commit()
+  
+  return nova_turma
+
+
+@router.get("/", response_model=List[TurmaSchema])
 async def get_turmas(db: AsyncSession = Depends(get_session)):
   async with db as session:
     query = select(TurmaModel)
@@ -30,16 +40,6 @@ async def get_turma(turma_id:int, db: AsyncSession = Depends(get_session)):
       return turma
     else:
       raise HTTPException(detail="Turma não encontrada", status_code=status.HTTP_404_NOT_FOUND)
-
-
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=TurmaSchema)
-async def post_turma(turma: TurmaSchema, db: AsyncSession = Depends(get_session)):
-  
-  nova_turma = TurmaModel(nome=turma.nome, semestre=turma.semestre)
-  db.add(nova_turma)
-  await db.commit()
-  
-  return nova_turma
 
 
 @router.put("/{turma_id}", response_model=TurmaSchema, status_code=status.HTTP_202_ACCEPTED)

@@ -4,23 +4,28 @@ from fastapi import APIRouter, status, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from models.models import MateriaModel, TurmaModel
-from schemas.schemas import MateriaSchema, TurmaSchema
+from models.materia_model import MateriaModel
+from schemas.schemas import MateriaSchema
 from core.deps import get_session
 
 router = APIRouter()
 
-@router.post("/",status_code=status.HTTP_201_CREATED, response_model=MateriaSchema)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=MateriaSchema)
 async def post_materia(materia: MateriaSchema, db: AsyncSession = Depends(get_session)):
-  
-  nova_materia = MateriaModel(título=materia.título, responsável=materia.responsável, local=materia.local, semestre=materia.semestre, 
-                              turma=materia.turma, turma_id=materia.turma_id)
-  db.add(nova_materia)
-  await db.commit()
-  
-  return nova_materia
+    nova_materia = MateriaModel(
+        título=materia.título,
+        responsável=materia.responsável,
+        local=materia.local,
+        semestre=materia.semestre,
+        turma_id=materia.turma_id
+    )
 
-@router.get("/materias", response_model=List[MateriaSchema])
+    db.add(nova_materia)
+    await db.commit()
+    
+    return nova_materia
+
+@router.get("/", response_model=List[MateriaSchema])
 async def get_materias(db: AsyncSession = Depends(get_session)):
   async with db as session:
     query = select(MateriaModel)
@@ -44,23 +49,25 @@ async def get_materia(materia_id:int, db: AsyncSession = Depends(get_session)):
     
 
 @router.put("/{materia_id}", response_model=MateriaSchema, status_code=status.HTTP_202_ACCEPTED)
-async def put_materia(materia_id: int, materia:MateriaSchema, db: AsyncSession = Depends(get_session)):
-  async with db as session:
-    query = select(MateriaModel).filter(MateriaModel.id == materia_id)
-    result = await session.execute(query)
-    materia_up = result.scalar_one_or_none()
-    
-    if materia_up:
-      materia_up.título = materia.título
-      materia_up.responsável = materia.responsável
-      materia_up.local = materia.local
-      materia_up.semestre = materia.semestre
-      
-      await session.commit()
-      return materia_up
-    else:
-      raise HTTPException(detail="Matéria não encontrada", status_code=status.HTTP_404_NOT_FOUND)
-
+async def put_materia(materia_id: int, materia: MateriaSchema, db: AsyncSession = Depends(get_session)):
+    async with db as session:
+        query = select(MateriaModel).filter(MateriaModel.id == materia_id)
+        result = await session.execute(query)
+        materia_up = result.scalar_one_or_none()
+        
+        if materia_up:
+            materia_up.título = materia.título
+            materia_up.responsável = materia.responsável
+            materia_up.local = materia.local
+            materia_up.semestre = materia.semestre
+            
+            if materia.turma_id:
+                materia_up.turma_id = materia.turma_id
+            
+            await session.commit()
+            return materia_up
+        else:
+            raise HTTPException(detail="Matéria não encontrada", status_code=status.HTTP_404_NOT_FOUND)
   
   
 @router.delete("/{materia_id}", status_code=status.HTTP_204_NO_CONTENT)
