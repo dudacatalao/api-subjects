@@ -12,8 +12,7 @@ router = APIRouter()
 
 @router.post("/",status_code=status.HTTP_201_CREATED, response_model=TurmaSchema)
 async def post_turma(turma: TurmaSchema, db: AsyncSession = Depends(get_session)):
-  
-  nova_turma = TurmaModel(id=turma.id, nome=turma.nome, semestre=turma.semestre)
+  nova_turma = TurmaModel(id=turma.id,nome=turma.nome, semestre=turma.semestre)
   db.add(nova_turma)
   await db.commit()
   
@@ -50,6 +49,7 @@ async def put_turma(turma_id: int, turma:TurmaSchema, db: AsyncSession = Depends
     turma_up = result.scalar_one_or_none()
     
     if turma_up:
+      turma_up.id = turma.id
       turma_up.nome = turma.nome
       turma_up.semestre = turma.semestre
       

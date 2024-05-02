@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import BaseModel as SCBaseModel
 
 class TurmaSchema(SCBaseModel):
-    id_turma: int
+    id: Optional[int] = None
     nome: str
     semestre: str
 

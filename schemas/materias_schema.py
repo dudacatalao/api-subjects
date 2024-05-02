@@ -4,12 +4,12 @@ from schemas.turmas_schema import TurmaSchema
 
 class MateriaSchema(SCBaseModel):
     id: Optional[int] = None
-    título: str  
-    responsável: str
+    titulo: str  
+    responsavel: str
     local: str
     semestre: str
     turma_id: int
-    turma: Optional[TurmaSchema] 
+    # turma: Optional[TurmaSchema] 
     
     class Config:
         orm_mode = True

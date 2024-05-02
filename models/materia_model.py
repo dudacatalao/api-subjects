@@ -10,6 +10,6 @@ class MateriaModel(settings.DBBaseModel):
     responsavel = Column(String(50))
     local = Column(String(20))
     semestre = Column(String(20))
-    turma_id = Column(Integer, ForeignKey('turmas.id_turma'))
+    turma_id = Column(Integer, ForeignKey('turmas.id'))
     
     # turma = relationship("TurmaModel", back_populates="materias")

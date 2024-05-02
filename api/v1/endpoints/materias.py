@@ -13,8 +13,8 @@ router = APIRouter()
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=MateriaSchema)
 async def post_materia(materia: MateriaSchema, db: AsyncSession = Depends(get_session)):
     nova_materia = MateriaModel(
-        título=materia.título,
-        responsável=materia.responsável,
+        titulo=materia.titulo,
+        responsavel=materia.responsavel,
         local=materia.local,
         semestre=materia.semestre,
         turma_id=materia.turma_id
@@ -56,8 +56,8 @@ async def put_materia(materia_id: int, materia: MateriaSchema, db: AsyncSession 
         materia_up = result.scalar_one_or_none()
         
         if materia_up:
-            materia_up.título = materia.título
-            materia_up.responsável = materia.responsável
+            materia_up.titulo = materia.titulo
+            materia_up.responsavel = materia.responsavel
             materia_up.local = materia.local
             materia_up.semestre = materia.semestre
             
