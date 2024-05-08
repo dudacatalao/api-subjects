@@ -3,18 +3,18 @@ import apiFetch from '../axios/config'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const NewPost = () => {
+const NewTurma = () => {
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState()
-  const [body, setBody] = useState()
+  const [nome, setNome] = useState()
+  const [semestre, setSemestre] = useState()
 
   const createPost = async (e) =>{
     e.preventDefault()
 
-    const post = [title, body];
+    const post = [nome, semestre];
 
-    await apiFetch.post('/posts', {
+    await apiFetch.post('/turmas', {
       body:post
     })
 
@@ -23,30 +23,30 @@ const NewPost = () => {
 
   return (
     <div className='new-post'>
-      <h2>Inserir new post:</h2>
+      <h2>Inserir new turma:</h2>
       <form action="" onSubmit={(e) => createPost(e)}>
         <div className="form-control">
-          <label htmlFor="title">Título:</label>
+          <label htmlFor="title">Nome:</label>
           <input 
             type="text" 
             name="title" 
             id="title"
-            placeholder='Digite o título' 
-            onChange={(e) => setTitle(e.target.value)}/>
+            placeholder='Digite o nome' 
+            onChange={(e) => setNome(e.target.value)}/>
         </div>
         <div className="form-control">
-          <label htmlFor="body">Conteúdo:</label>
+          <label htmlFor="body">Semestre:</label>
           <textarea 
             name='body'
             id='body' 
-            placeholder='Digite o conteúdo'
-            onChange={(e) => setBody(e.target.value)}
+            placeholder='Digite o semestre'
+            onChange={(e) => setSemestre(e.target.value)}
             ></textarea>
         </div>
-        <input type="submit" value='Criar Post' className='btn' />
+        <input type="submit" value='Criar Turma' className='btn' />
       </form>
     </div>
   )
 }
 
-export default NewPost
+export default NewTurma

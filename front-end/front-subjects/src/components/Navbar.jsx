@@ -13,7 +13,8 @@ const Navbar = () => {
                 <Link to={'/'}>Home</Link>
             </li>
             <li>
-                <Link to={'/new'} className='new-btn'>Novo Post</Link>
+                <Link to={'/novaturma'} className='new-btn'>Nova Turma</Link>
+                <Link to={'/novamateria'} className='new-btn'>Nova Matéria</Link>
             </li>
         </ul>
       </nav>
