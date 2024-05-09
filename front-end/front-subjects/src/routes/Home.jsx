@@ -9,7 +9,7 @@ const Home = () => {
 
   const getTurmas = async() =>{
     try {
-      const response = await apiFetch.get("/turmas")
+      const response = await apiFetch.get("/turmas/")
 
       const data = response.data
       setTurmas(data)
@@ -21,7 +21,7 @@ const Home = () => {
 
   const getMaterias = async() =>{
     try {
-      const response = await apiFetch.get("/materias")
+      const response = await apiFetch.get("/materias/")
 
       const data = response.data
       setMaterias(data)
