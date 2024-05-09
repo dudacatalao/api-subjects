@@ -44,10 +44,10 @@ const Home = () => {
             materias.map((materia) => (
               <div className="post" key={materia.id}>
                 <h2>{materia.titulo}</h2>
-                <p>{materia.responsavel}</p>
-                <p>{materia.local}</p>
-                <p>{materia.semestre}</p>
-                <p>{materia.turma_id}</p>
+                <p><b>Responsável: </b> {materia.responsavel}</p>
+                <p><b>Local: </b>{materia.local}</p>
+                <p><b>Semestre: </b>{materia.semestre}</p>
+                <p><b>ID Turma: </b>{materia.turma_id}</p>
                 {/* <Link to={`/posts/${materia.id}`} className="btn">Ler mais</Link> */}
               </div>
             ))
@@ -60,7 +60,7 @@ const Home = () => {
             turmas.map((turma) => (
               <div className="post" key={turma.id}>
                 <h2>{turma.nome}</h2>
-                <p>{turma.semestre}</p>
+                <p><b>Semestre: </b>{turma.semestre}</p>
                 {/* <Link to={`/posts/${turma.id}`} className="btn">Ler mais</Link> */}
               </div>
             ))

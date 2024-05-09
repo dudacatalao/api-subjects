@@ -3,30 +3,43 @@ import apiFetch from '../axios/config';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const NewTurma = () => {
+const UpdateTurma = () => {
   const navigate = useNavigate();
 
+  const [id, setID] = useState('');
   const [nome, setNome] = useState('');
   const [semestre, setSemestre] = useState('');
 
   const turmaData = {
+    id,
     nome,
     semestre
   };
 
-  const createPost = async (e) =>{
+  const updateTurma = async (e) =>{
     e.preventDefault();
 
-    await apiFetch.post('/turmas/', turmaData);
+    await apiFetch.put(`/turmas/${id}`, turmaData);
 
     navigate('/');
   }
 
   return (
     <div className='new-post'>
-      <h2>Inserir nova turma:</h2>
-      <form onSubmit={createPost}>
+      <h2>Atualizar turma:</h2>
+      <form onSubmit={updateTurma}>
         
+        <div className="form-control">
+          <label htmlFor="nome">ID:</label>
+          <input 
+            type="number" 
+            name="id" 
+            id="id"
+            placeholder='Digite o ID' 
+            value={id}
+            onChange={(e) => setID(e.target.value)}/>
+        </div>
+
         <div className="form-control">
           <label htmlFor="nome">Nome:</label>
           <input 
@@ -47,10 +60,10 @@ const NewTurma = () => {
             value={semestre}
             onChange={(e) => setSemestre(e.target.value)}/>
         </div>
-        <input type="submit" value='Criar Turma' className='btn'/>
+        <input type="submit" value='Atualizar Turma' className='btn'/>
       </form>
     </div>
   );
 };
 
-export default NewTurma;
+export default UpdateTurma;
