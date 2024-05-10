@@ -26,3 +26,30 @@ a:hover{
 p{
   color: #c8b6ff;
 }
+
+.texto {
+  padding-top: 20px;
+  padding-bottom: 50px;
+  font-family: "Montserrat", sans-serif; 
+  font-optical-sizing: auto; 
+  font-weight: bold; 
+  font-size: 60px; 
+  text-transform: uppercase; 
+  background: linear-gradient(45deg, #b8b8ff, #957fef, #7161ef, #b8b8ff); 
+  background-size: 400% 100%;
+  animation: degrade 10s linear infinite ease-in;
+  text-align: center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+}
+
+@keyframes degrade {
+  0%{
+    background-position-x: 0%;
+  }
+
+  100%{
+    background-position: 400%;
+  }
+}

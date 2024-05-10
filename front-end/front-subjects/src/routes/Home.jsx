@@ -39,7 +39,8 @@ const Home = () => {
   return (
     <>
       <div className="home">
-          <h1>Ultimas Matérias</h1>
+        <div className="texto">API matérias SENAI e BOSCH</div>
+          <h1>Matérias</h1>
           {materias.length === 0 ? (<p>Carregando</p>) : (
             materias.map((materia) => (
               <div className="post" key={materia.id}>
@@ -48,14 +49,13 @@ const Home = () => {
                 <p><b>Local: </b>{materia.local}</p>
                 <p><b>Semestre: </b>{materia.semestre}</p>
                 <p><b>ID Turma: </b>{materia.turma_id}</p>
-                {/* <Link to={`/posts/${materia.id}`} className="btn">Ler mais</Link> */}
               </div>
             ))
           )}
       </div>
 
       <div className="home">
-          <h1>Ultimas Turmas</h1>
+          <h1>Turmas</h1>
           {turmas.length === 0 ? (<p>Carregando</p>) : (
             turmas.map((turma) => (
               <div className="post" key={turma.id}>

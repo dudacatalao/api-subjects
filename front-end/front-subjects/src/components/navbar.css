@@ -1,9 +1,10 @@
 .navbar{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 1rem 2rem;
     background-color: #c8b6ff;
+
 }
 
 h2{
@@ -12,12 +13,12 @@ h2{
 
 .navbar ul{
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .new-btn{
     font-weight: 300;
-    border: 1px solid #fff;
+    
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     margin-left: 15px;
